@@ -1,0 +1,5 @@
+{
+  "appId": "com.telegram.messenger",
+  "appName": "Messenger",
+  "webDir": "dist"
+}
