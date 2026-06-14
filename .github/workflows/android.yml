@@ -31,15 +31,15 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Copy capacitor config
+      - name: Setup Capacitor Android
         run: |
           if [ -d "android" ]; then
-            echo "Android platform exists"
+            echo "Android folder exists"
           else
-            echo "Android platform not found"
+            echo "Creating Android platform..."
+            npx cap add android
           fi
-      - name: Sync Capacitor
-        run: npx cap sync android
+          npx cap sync android
 
       - name: Sync web assets
         run: npx cap sync android
