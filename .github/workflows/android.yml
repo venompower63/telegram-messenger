@@ -35,9 +35,15 @@ jobs:
 
       - name: Setup Capacitor Android
         run: |
-          echo "Creating Android platform..."
-          npx cap add android || echo "Platform may already exist"
-          npx cap sync android
+          echo "Checking Android folder..."
+          ls -la
+          if [ -d "android" ]; then
+            echo "Android exists, syncing..."
+            npx cap sync android
+          else
+            echo "Android not found, adding..."
+            npx cap add android
+          fi
 
       - name: Sync web assets
         run: npx cap sync android
