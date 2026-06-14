@@ -38,11 +38,11 @@ jobs:
           echo "Adding Android platform..."
           npx cap add android
 
-      - name: Sync web assets
-        run: npx cap sync android
-
       - name: Build web app
         run: npm run build
+
+      - name: Sync Capacitor
+        run: npx cap sync android
 
       - name: Build APK
         run: |
