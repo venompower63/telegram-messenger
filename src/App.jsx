@@ -11,13 +11,10 @@ import {
 	FileText,
 	Send,
 	Settings,
-
 	UserPlus,
 	MessageCircle,
 	Search,
-
 	Globe,
-
 	Key,
 	Bell,
 	Database,
@@ -38,16 +35,24 @@ function formatTime(dateStr) {
 	const date = new Date(dateStr);
 	const now = new Date();
 	const diffDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
-	if (diffDays === 0) return date.toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" });
+	if (diffDays === 0)
+		return date.toLocaleTimeString("ru-RU", {
+			hour: "2-digit",
+			minute: "2-digit",
+		});
 	if (diffDays === 1) return "вчера";
-	if (diffDays < 7) return date.toLocaleDateString("ru-RU", { weekday: "short" });
+	if (diffDays < 7)
+		return date.toLocaleDateString("ru-RU", { weekday: "short" });
 	return date.toLocaleDateString("ru-RU", { day: "numeric", month: "short" });
 }
 
 function formatMessageTime(dateStr) {
 	if (!dateStr) return "";
 	const date = new Date(dateStr);
-	return date.toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" });
+	return date.toLocaleTimeString("ru-RU", {
+		hour: "2-digit",
+		minute: "2-digit",
+	});
 }
 
 function formatOnlineStatus(status, lastSeen) {
@@ -62,8 +67,10 @@ function formatOnlineStatus(status, lastSeen) {
 }
 
 function StatusIcon({ status }) {
-	if (status === "read") return <CheckCheck size={14} className="status-icon read" />;
-	if (status === "delivered" || status === "sent") return <Check size={14} className="status-icon sent" />;
+	if (status === "read")
+		return <CheckCheck size={14} className="status-icon read" />;
+	if (status === "delivered" || status === "sent")
+		return <Check size={14} className="status-icon sent" />;
 	return null;
 }
 
@@ -81,20 +88,29 @@ function MessageBubble({ message, isOutgoing }) {
 		<div className={`message-bubble ${isOutgoing ? "outgoing" : "incoming"}`}>
 			<div className="message-content">{message.text}</div>
 			{message.attachment && (
-				<div className={`message-attachment attachment-${message.attachment.type}`}>
+				<div
+					className={`message-attachment attachment-${message.attachment.type}`}
+				>
 					{message.attachment.type === "image" && (
-						<img src={message.attachment.url} alt={message.attachment.filename} />
+						<img
+							src={message.attachment.url}
+							alt={message.attachment.filename}
+						/>
 					)}
 					{message.attachment.type === "document" && (
 						<div className="document-preview">
 							<FileText size={20} />
-							<span className="document-name">{message.attachment.filename}</span>
+							<span className="document-name">
+								{message.attachment.filename}
+							</span>
 						</div>
 					)}
 				</div>
 			)}
 			<div className="message-meta">
-				<span className="message-time">{formatMessageTime(message.timestamp)}</span>
+				<span className="message-time">
+					{formatMessageTime(message.timestamp)}
+				</span>
 				{isOutgoing && <StatusIcon status={message.status} />}
 			</div>
 		</div>
@@ -104,16 +120,31 @@ function MessageBubble({ message, isOutgoing }) {
 function ChatHeader({ chat, onBack }) {
 	return (
 		<div className="chat-header">
-			<button className="back-button" onClick={onBack}><ArrowLeft size={20} /></button>
-			<Avatar src={chat.avatar} name={chat.name} isOnline={chat.isOnline} size={40} />
+			<button className="back-button" onClick={onBack}>
+				<ArrowLeft size={20} />
+			</button>
+			<Avatar
+				src={chat.avatar}
+				name={chat.name}
+				isOnline={chat.isOnline}
+				size={40}
+			/>
 			<div className="chat-header-info">
 				<span className="chat-header-name">{chat.name}</span>
-				<span className="chat-header-status">{chat.isOnline ? "онлайн" : formatOnlineStatus(null, chat.lastSeen)}</span>
+				<span className="chat-header-status">
+					{chat.isOnline ? "онлайн" : formatOnlineStatus(null, chat.lastSeen)}
+				</span>
 			</div>
 			<div className="chat-header-actions">
-				<button className="action-btn"><Phone size={20} /></button>
-				<button className="action-btn"><Video size={20} /></button>
-				<button className="action-btn"><MoreVertical size={20} /></button>
+				<button className="action-btn">
+					<Phone size={20} />
+				</button>
+				<button className="action-btn">
+					<Video size={20} />
+				</button>
+				<button className="action-btn">
+					<MoreVertical size={20} />
+				</button>
 			</div>
 		</div>
 	);
@@ -139,10 +170,18 @@ function MessageInput({ onSend, disabled }) {
 
 	return (
 		<div className="message-input-container">
-			<button className="action-btn" onClick={() => fileInputRef.current?.click()}>
+			<button
+				className="action-btn"
+				onClick={() => fileInputRef.current?.click()}
+			>
 				<Paperclip size={20} />
 			</button>
-			<input type="file" ref={fileInputRef} style={{ display: "none" }} accept="image/*" />
+			<input
+				type="file"
+				ref={fileInputRef}
+				style={{ display: "none" }}
+				accept="image/*"
+			/>
 			<input
 				type="text"
 				className="message-input"
@@ -152,8 +191,14 @@ function MessageInput({ onSend, disabled }) {
 				onKeyDown={handleKeyDown}
 				disabled={disabled}
 			/>
-			<button className="action-btn"><Smile size={20} /></button>
-			<button className="send-btn" onClick={handleSend} disabled={!text.trim() || disabled}>
+			<button className="action-btn">
+				<Smile size={20} />
+			</button>
+			<button
+				className="send-btn"
+				onClick={handleSend}
+				disabled={!text.trim() || disabled}
+			>
 				<Send size={20} />
 			</button>
 		</div>
@@ -162,16 +207,29 @@ function MessageInput({ onSend, disabled }) {
 
 function ChatListItem({ chat, isActive, onClick }) {
 	return (
-		<div className={`chat-list-item ${isActive ? "active" : ""}`} onClick={onClick}>
+		<div
+			className={`chat-list-item ${isActive ? "active" : ""}`}
+			onClick={onClick}
+		>
 			<Avatar src={chat.avatar} name={chat.name} isOnline={chat.isOnline} />
 			<div className="chat-info">
 				<div className="chat-header-row">
 					<span className="chat-name">{chat.name}</span>
-					{chat.lastMessage && <span className="chat-time">{formatTime(chat.lastMessage.timestamp)}</span>}
+					{chat.lastMessage && (
+						<span className="chat-time">
+							{formatTime(chat.lastMessage.timestamp)}
+						</span>
+					)}
 				</div>
 				<div className="chat-preview-row">
-					<span className="chat-preview">{chat.lastMessage?.text || "Нет сообщений"}</span>
-					{chat.unreadCount > 0 && <span className="unread-badge">{chat.unreadCount > 99 ? "99+" : chat.unreadCount}</span>}
+					<span className="chat-preview">
+						{chat.lastMessage?.text || "Нет сообщений"}
+					</span>
+					{chat.unreadCount > 0 && (
+						<span className="unread-badge">
+							{chat.unreadCount > 99 ? "99+" : chat.unreadCount}
+						</span>
+					)}
 				</div>
 			</div>
 		</div>
@@ -183,19 +241,31 @@ function ChatListItem({ chat, isActive, onClick }) {
 function BottomNav({ activeTab, onTabChange }) {
 	return (
 		<nav className="bottom-nav">
-			<button className={`nav-item ${activeTab === "chats" ? "active" : ""}`} onClick={() => onTabChange("chats")}>
+			<button
+				className={`nav-item ${activeTab === "chats" ? "active" : ""}`}
+				onClick={() => onTabChange("chats")}
+			>
 				<MessageCircle size={24} />
 				<span>Чаты</span>
 			</button>
-			<button className={`nav-item ${activeTab === "contacts" ? "active" : ""}`} onClick={() => onTabChange("contacts")}>
+			<button
+				className={`nav-item ${activeTab === "contacts" ? "active" : ""}`}
+				onClick={() => onTabChange("contacts")}
+			>
 				<UserPlus size={24} />
 				<span>Контакты</span>
 			</button>
-			<button className={`nav-item ${activeTab === "settings" ? "active" : ""}`} onClick={() => onTabChange("settings")}>
+			<button
+				className={`nav-item ${activeTab === "settings" ? "active" : ""}`}
+				onClick={() => onTabChange("settings")}
+			>
 				<Settings size={24} />
 				<span>Настройки</span>
 			</button>
-			<button className={`nav-item ${activeTab === "profile" ? "active" : ""}`} onClick={() => onTabChange("profile")}>
+			<button
+				className={`nav-item ${activeTab === "profile" ? "active" : ""}`}
+				onClick={() => onTabChange("profile")}
+			>
 				<User size={24} />
 				<span>Профиль</span>
 			</button>
@@ -207,15 +277,69 @@ function BottomNav({ activeTab, onTabChange }) {
 
 function SettingsPage({ onOpenSection }) {
 	const sections = [
-		{ id: "account", icon: User, color: "#3390EC", title: "Аккаунт", subtitle: "Номер, имя пользователя, «О себе»" },
-		{ id: "chats", icon: MessageCircle, color: "#F59E0B", title: "Настройки чатов", subtitle: "Обои, ночной режим, анимации" },
-		{ id: "privacy", icon: Key, color: "#10B981", title: "Конфиденциальность", subtitle: "Время захода, устройства, ключи доступа" },
-		{ id: "notifications", icon: Bell, color: "#EF4444", title: "Уведомления", subtitle: "Звуки, звонки, счётчик сообщений" },
-		{ id: "data", icon: Database, color: "#3B82F6", title: "Данные и память", subtitle: "Настройки загрузки медиафайлов" },
-		{ id: "folders", icon: Folder, color: "#3B82F6", title: "Папки с чатами", subtitle: "Сортировка чатов по папкам" },
-		{ id: "devices", icon: Monitor, color: "#06B6D4", title: "Устройства", subtitle: "Управление активными сеансами" },
-		{ id: "power", icon: BatteryCharging, color: "#F59E0B", title: "Энергосбережение", subtitle: "Экономия энергии при низком заряде" },
-		{ id: "language", icon: Globe, color: "#8B5CF6", title: "Язык", subtitle: "Русский" },
+		{
+			id: "account",
+			icon: User,
+			color: "#3390EC",
+			title: "Аккаунт",
+			subtitle: "Номер, имя пользователя, «О себе»",
+		},
+		{
+			id: "chats",
+			icon: MessageCircle,
+			color: "#F59E0B",
+			title: "Настройки чатов",
+			subtitle: "Обои, ночной режим, анимации",
+		},
+		{
+			id: "privacy",
+			icon: Key,
+			color: "#10B981",
+			title: "Конфиденциальность",
+			subtitle: "Время захода, устройства, ключи доступа",
+		},
+		{
+			id: "notifications",
+			icon: Bell,
+			color: "#EF4444",
+			title: "Уведомления",
+			subtitle: "Звуки, звонки, счётчик сообщений",
+		},
+		{
+			id: "data",
+			icon: Database,
+			color: "#3B82F6",
+			title: "Данные и память",
+			subtitle: "Настройки загрузки медиафайлов",
+		},
+		{
+			id: "folders",
+			icon: Folder,
+			color: "#3B82F6",
+			title: "Папки с чатами",
+			subtitle: "Сортировка чатов по папкам",
+		},
+		{
+			id: "devices",
+			icon: Monitor,
+			color: "#06B6D4",
+			title: "Устройства",
+			subtitle: "Управление активными сеансами",
+		},
+		{
+			id: "power",
+			icon: BatteryCharging,
+			color: "#F59E0B",
+			title: "Энергосбережение",
+			subtitle: "Экономия энергии при низком заряде",
+		},
+		{
+			id: "language",
+			icon: Globe,
+			color: "#8B5CF6",
+			title: "Язык",
+			subtitle: "Русский",
+		},
 	];
 
 	return (
@@ -225,8 +349,15 @@ function SettingsPage({ onOpenSection }) {
 			</div>
 			<div className="settings-list">
 				{sections.map((section) => (
-					<div key={section.id} className="settings-item" onClick={() => onOpenSection(section.id)}>
-						<div className="settings-icon" style={{ backgroundColor: section.color }}>
+					<div
+						key={section.id}
+						className="settings-item"
+						onClick={() => onOpenSection(section.id)}
+					>
+						<div
+							className="settings-icon"
+							style={{ backgroundColor: section.color }}
+						>
 							<section.icon size={20} color="white" />
 						</div>
 						<div className="settings-text">
@@ -260,13 +391,18 @@ function SettingsSectionPage({ sectionId, onBack }) {
 	return (
 		<div className="settings-page">
 			<div className="settings-header">
-				<button className="back-button" onClick={onBack}><ArrowLeft size={20} /></button>
+				<button className="back-button" onClick={onBack}>
+					<ArrowLeft size={20} />
+				</button>
 				<h2>{getSectionTitle()}</h2>
 			</div>
 			<div className="section-content">
 				<div className="info-card">
 					<Info size={20} />
-					<p>Настройки раздела "{getSectionTitle()}" будут доступны в следующей версии.</p>
+					<p>
+						Настройки раздела "{getSectionTitle()}" будут доступны в следующей
+						версии.
+					</p>
 				</div>
 			</div>
 		</div>
@@ -292,7 +428,9 @@ function ProfilePage({ profile, onLogout }) {
 				{profile.bio && <p className="profile-bio">{profile.bio}</p>}
 
 				<div className="profile-actions">
-					<button className="btn-secondary" onClick={onLogout}>Выйти</button>
+					<button className="btn-secondary" onClick={onLogout}>
+						Выйти
+					</button>
 				</div>
 			</div>
 		</div>
@@ -335,16 +473,17 @@ function ContactsPage({ onAddContact }) {
 			const data = await res.json();
 			if (res.ok) {
 				onAddContact(data.chat);
-				setSuggestions(suggestions.filter(s => s.id !== userId));
+				setSuggestions(suggestions.filter((s) => s.id !== userId));
 			}
 		} catch (err) {
 			console.error("Failed to add contact:", err);
 		}
 	};
 
-	const filtered = suggestions.filter(s => 
-		s.name.toLowerCase().includes(search.toLowerCase()) ||
-		s.phone.includes(search)
+	const filtered = suggestions.filter(
+		(s) =>
+			s.name.toLowerCase().includes(search.toLowerCase()) ||
+			s.phone.includes(search),
 	);
 
 	return (
@@ -369,15 +508,23 @@ function ContactsPage({ onAddContact }) {
 				) : filtered.length === 0 ? (
 					<div className="no-contacts">Контакты не найдены</div>
 				) : (
-					filtered.map(user => (
+					filtered.map((user) => (
 						<div key={user.id} className="contact-item-page">
-							<Avatar src={user.avatar} name={user.name} isOnline={user.status === "online"} size={48} />
+							<Avatar
+								src={user.avatar}
+								name={user.name}
+								isOnline={user.status === "online"}
+								size={48}
+							/>
 							<div className="contact-info-page">
 								<span className="contact-name-page">{user.name}</span>
 								<span className="contact-phone-page">{user.phone}</span>
 								<span className="contact-bio-page">{user.bio}</span>
 							</div>
-							<button className="add-contact-btn" onClick={() => handleAdd(user.id)}>
+							<button
+								className="add-contact-btn"
+								onClick={() => handleAdd(user.id)}
+							>
 								<UserPlus size={20} />
 							</button>
 						</div>
@@ -392,7 +539,9 @@ function ContactsPage({ onAddContact }) {
 
 function ChatsPage({ chats, activeChat, onSelectChat }) {
 	const [search, setSearch] = useState("");
-	const filtered = chats.filter(chat => chat.name.toLowerCase().includes(search.toLowerCase()));
+	const filtered = chats.filter((chat) =>
+		chat.name.toLowerCase().includes(search.toLowerCase()),
+	);
 
 	return (
 		<div className="chats-page">
@@ -417,7 +566,7 @@ function ChatsPage({ chats, activeChat, onSelectChat }) {
 						<p>Нет чатов</p>
 					</div>
 				) : (
-					filtered.map(chat => (
+					filtered.map((chat) => (
 						<ChatListItem
 							key={chat.id}
 							chat={chat}
@@ -443,7 +592,9 @@ function App() {
 	const messagesEndRef = useRef(null);
 	const [showChat, setShowChat] = useState(false);
 	const [activeTab, setActiveTab] = useState("chats");
-	const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem(TOKEN_KEY));
+	const [isAuthenticated, setIsAuthenticated] = useState(
+		!!localStorage.getItem(TOKEN_KEY),
+	);
 	const [settingsSection, setSettingsSection] = useState(null);
 
 	const getAuthHeaders = () => {
@@ -494,7 +645,9 @@ function App() {
 
 	async function fetchMessages(chatId) {
 		try {
-			const res = await fetch(`${API_BASE}/chats/${chatId}/messages`, { headers: getAuthHeaders() });
+			const res = await fetch(`${API_BASE}/chats/${chatId}/messages`, {
+				headers: getAuthHeaders(),
+			});
 			const data = await res.json();
 			setMessages(Array.isArray(data) ? data : []);
 		} catch (err) {
@@ -513,10 +666,14 @@ function App() {
 				body: JSON.stringify({ text }),
 			});
 			const newMessage = await res.json();
-			setMessages(prev => [...prev, newMessage]);
-			setChats(prev => prev.map(chat => 
-				chat.id === activeChat.id ? { ...chat, lastMessage: newMessage } : chat
-			));
+			setMessages((prev) => [...prev, newMessage]);
+			setChats((prev) =>
+				prev.map((chat) =>
+					chat.id === activeChat.id
+						? { ...chat, lastMessage: newMessage }
+						: chat,
+				),
+			);
 		} catch (err) {
 			console.error("Failed to send message:", err);
 		} finally {
@@ -537,7 +694,7 @@ function App() {
 	};
 
 	const handleAddContact = (chat) => {
-		setChats(prev => [chat, ...prev]);
+		setChats((prev) => [chat, ...prev]);
 	};
 
 	const handleTabChange = (tab) => {
@@ -562,9 +719,18 @@ function App() {
 		}
 	}, [messages]);
 
-	// ============ AUTH MODAL ============
+	// Auto-login with demo user (no auth required)
 	if (!isAuthenticated) {
-		return <AuthModal onAuth={handleAuth} />;
+		const demoUser = {
+			id: "demo_user",
+			name: "Вы",
+			phone: "+79001234567",
+			avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=demo",
+			status: "online",
+			bio: "Я использую ZIPCHAT",
+		};
+		handleAuth(demoUser);
+		return null;
 	}
 
 	// ============ CHAT VIEW ============
@@ -572,11 +738,21 @@ function App() {
 		return (
 			<div className="app">
 				<main className="chat-area-full">
-					<ChatHeader chat={activeChat} onBack={() => { setShowChat(false); setActiveChat(null); }} />
+					<ChatHeader
+						chat={activeChat}
+						onBack={() => {
+							setShowChat(false);
+							setActiveChat(null);
+						}}
+					/>
 					<div className="messages-container">
 						<div className="messages-wrapper">
-							{messages.map(msg => (
-								<MessageBubble key={msg.id} message={msg} isOutgoing={msg.senderId === profile?.id} />
+							{messages.map((msg) => (
+								<MessageBubble
+									key={msg.id}
+									message={msg}
+									isOutgoing={msg.senderId === profile?.id}
+								/>
 							))}
 							<div ref={messagesEndRef} />
 						</div>
@@ -593,7 +769,11 @@ function App() {
 		<div className="app">
 			<main className="main-content">
 				{activeTab === "chats" && (
-					<ChatsPage chats={chats} activeChat={activeChat} onSelectChat={handleSelectChat} />
+					<ChatsPage
+						chats={chats}
+						activeChat={activeChat}
+						onSelectChat={handleSelectChat}
+					/>
 				)}
 				{activeTab === "contacts" && (
 					<ContactsPage onAddContact={handleAddContact} />
@@ -602,106 +782,16 @@ function App() {
 					<SettingsPage onOpenSection={setSettingsSection} />
 				)}
 				{activeTab === "settings" && settingsSection && (
-					<SettingsSectionPage sectionId={settingsSection} onBack={() => setSettingsSection(null)} />
+					<SettingsSectionPage
+						sectionId={settingsSection}
+						onBack={() => setSettingsSection(null)}
+					/>
 				)}
 				{activeTab === "profile" && (
 					<ProfilePage profile={profile} onLogout={handleLogout} />
 				)}
 			</main>
 			<BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
-		</div>
-	);
-}
-
-// ============ AUTH MODAL ============
-
-function AuthModal({ onAuth }) {
-	const [isLogin, setIsLogin] = useState(true);
-	const [phone, setPhone] = useState("");
-	const [name, setName] = useState("");
-	const [bio, setBio] = useState("");
-	const [error, setError] = useState("");
-	const [loading, setLoading] = useState(false);
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		setError("");
-		setLoading(true);
-
-		try {
-			const endpoint = isLogin ? "/api/auth/login" : "/api/auth/register";
-			const body = isLogin ? { phone } : { phone, name, bio };
-
-			const res = await fetch(`${API_BASE}${endpoint}`, {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(body),
-			});
-
-			const data = await res.json();
-
-			if (!res.ok) {
-				setError(data.detail || "Ошибка авторизации");
-				return;
-			}
-
-			localStorage.setItem(TOKEN_KEY, data.token);
-			onAuth(data.user);
-		} catch (err) {
-			setError("Ошибка соединения");
-		} finally {
-			setLoading(false);
-		}
-	};
-
-	return (
-		<div className="modal-overlay">
-			<div className="modal-content auth-modal">
-				<div className="auth-header">
-					<img src="https://api.dicebear.com/7.x/initials/svg?seed=M" alt="Logo" className="auth-logo" />
-					<h1>Telegram</h1>
-					<p>Введите номер телефона для входа</p>
-				</div>
-
-				<form onSubmit={handleSubmit}>
-					<div className="form-group">
-						<label>Телефон</label>
-						<input type="tel" placeholder="+79001234567" value={phone} onChange={(e) => setPhone(e.target.value)} required />
-					</div>
-
-					{!isLogin && (
-						<>
-							<div className="form-group">
-								<label>Ваше имя</label>
-								<input type="text" placeholder="Иван Иванов" value={name} onChange={(e) => setName(e.target.value)} required />
-							</div>
-							<div className="form-group">
-								<label>О себе</label>
-								<input type="text" placeholder="Расскажите о себе" value={bio} onChange={(e) => setBio(e.target.value)} />
-							</div>
-						</>
-					)}
-
-					{error && <div className="error-message">{error}</div>}
-
-					<button type="submit" className="btn-primary" disabled={loading}>
-						{loading ? "Загрузка..." : isLogin ? "Войти" : "Зарегистрироваться"}
-					</button>
-				</form>
-
-				<div className="auth-toggle">
-					{isLogin ? (
-						<p>Нет аккаунта? <button onClick={() => setIsLogin(false)}>Зарегистрироваться</button></p>
-					) : (
-						<p>Уже есть аккаунт? <button onClick={() => setIsLogin(true)}>Войти</button></p>
-					)}
-				</div>
-
-				<div className="demo-hint">
-					<p>Для демо используйте:</p>
-					<code>+79001234567</code>
-				</div>
-			</div>
 		</div>
 	);
 }
