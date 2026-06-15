@@ -1534,3 +1534,374 @@
 	font-size: 15px;
 	color: var(--text-secondary);
 }
+
+/* ============ BOTTOM NAVIGATION ============ */
+
+.bottom-nav {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background: var(--bg-secondary);
+	border-top: 1px solid var(--border);
+	padding: 8px 0;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 100;
+}
+
+.nav-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+	padding: 8px 16px;
+	background: none;
+	border: none;
+	color: var(--text-secondary);
+	cursor: pointer;
+	transition: color 0.2s;
+	border-radius: 12px;
+}
+
+.nav-item span {
+	font-size: 11px;
+}
+
+.nav-item.active {
+	color: var(--accent-primary);
+}
+
+.nav-item:hover {
+	color: var(--text-primary);
+}
+
+/* ============ MAIN CONTENT ============ */
+
+.main-content {
+	flex: 1;
+	overflow-y: auto;
+	padding-bottom: 70px;
+}
+
+.chat-area-full {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	width: 100%;
+}
+
+/* ============ CHATS PAGE ============ */
+
+.chats-page,
+.contacts-page,
+.settings-page,
+.profile-page {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.chats-header,
+.contacts-header,
+.settings-header,
+.profile-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 16px 20px;
+	border-bottom: 1px solid var(--border);
+}
+
+.chats-header h2,
+.contacts-header h2,
+.settings-header h2,
+.profile-header h2 {
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.settings-header .back-button,
+.profile-header .back-button {
+	display: none;
+}
+
+.add-btn {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	background: var(--accent-primary);
+	border: none;
+	color: white;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.add-btn:hover {
+	background: #2b7ac3;
+}
+
+.search-container {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 12px 16px;
+	margin: 8px 16px;
+	background: var(--bg-tertiary);
+	border-radius: 12px;
+}
+
+.search-container svg {
+	color: var(--text-muted);
+	flex-shrink: 0;
+}
+
+.search-container input {
+	flex: 1;
+	background: none;
+	border: none;
+	outline: none;
+	color: var(--text-primary);
+	font-size: 14px;
+}
+
+.chats-list-page,
+.contacts-list-page {
+	flex: 1;
+	overflow-y: auto;
+}
+
+/* ============ CONTACTS PAGE ============ */
+
+.contact-item-page {
+	display: flex;
+	align-items: center;
+	padding: 12px 16px;
+	gap: 12px;
+	cursor: pointer;
+	transition: background 0.15s;
+}
+
+.contact-item-page:hover {
+	background: var(--bg-tertiary);
+}
+
+.contact-info-page {
+	flex: 1;
+	min-width: 0;
+}
+
+.contact-name-page {
+	display: block;
+	font-size: 15px;
+	font-weight: 500;
+	color: var(--text-primary);
+}
+
+.contact-phone-page {
+	display: block;
+	font-size: 13px;
+	color: var(--text-secondary);
+}
+
+.contact-bio-page {
+	display: block;
+	font-size: 12px;
+	color: var(--text-muted);
+	margin-top: 2px;
+}
+
+.add-contact-btn {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: var(--accent-primary);
+	border: none;
+	color: white;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	transition: transform 0.15s, background 0.15s;
+}
+
+.add-contact-btn:hover {
+	background: #2b7ac3;
+	transform: scale(1.05);
+}
+
+.no-contacts {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 200px;
+	color: var(--text-secondary);
+	gap: 12px;
+}
+
+.no-contacts svg {
+	color: var(--text-muted);
+}
+
+/* ============ SETTINGS PAGE ============ */
+
+.settings-list {
+	padding: 8px 0;
+}
+
+.settings-item {
+	display: flex;
+	align-items: center;
+	padding: 14px 16px;
+	gap: 14px;
+	cursor: pointer;
+	transition: background 0.15s;
+}
+
+.settings-item:hover {
+	background: var(--bg-tertiary);
+}
+
+.settings-icon {
+	width: 44px;
+	height: 44px;
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+
+.settings-text {
+	flex: 1;
+	min-width: 0;
+}
+
+.settings-title {
+	display: block;
+	font-size: 15px;
+	font-weight: 500;
+	color: var(--text-primary);
+}
+
+.settings-subtitle {
+	display: block;
+	font-size: 13px;
+	color: var(--text-secondary);
+	margin-top: 2px;
+}
+
+.settings-arrow {
+	color: var(--text-muted);
+	flex-shrink: 0;
+}
+
+.section-content {
+	padding: 16px;
+}
+
+.info-card {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	padding: 16px;
+	background: var(--bg-tertiary);
+	border-radius: 12px;
+	color: var(--text-secondary);
+}
+
+.info-card svg {
+	flex-shrink: 0;
+	margin-top: 2px;
+}
+
+.info-card p {
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+/* ============ PROFILE PAGE ============ */
+
+.profile-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 32px 16px;
+	text-align: center;
+}
+
+.profile-avatar-large {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin-bottom: 16px;
+	border: 3px solid var(--accent-primary);
+}
+
+.profile-avatar-large img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.profile-name {
+	font-size: 22px;
+	font-weight: 600;
+	margin-bottom: 4px;
+}
+
+.profile-phone {
+	font-size: 14px;
+	color: var(--text-secondary);
+	margin-bottom: 8px;
+}
+
+.profile-bio {
+	font-size: 14px;
+	color: var(--text-muted);
+	max-width: 280px;
+}
+
+.profile-actions {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-top: 24px;
+	width: 100%;
+	max-width: 280px;
+}
+
+/* ============ RESPONSIVE ============ */
+
+@media (max-width: 768px) {
+	.sidebar {
+		display: none;
+	}
+
+	.main-content {
+		padding-bottom: 70px;
+	}
+
+	.settings-header .back-button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		background: none;
+		border: none;
+		color: var(--text-primary);
+		cursor: pointer;
+		margin-right: 8px;
+	}
+
+	.settings-header {
+		padding: 12px 16px;
+	}
+}
